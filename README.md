@@ -1,66 +1,64 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+PRUEBA TECNICA DE LARAVEL
 </p>
 
-## About Laravel
+## PASOS para ejecutar el proyecto 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+para copiar el proyecto en su computador local debe realizar los siguienes pasos:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- clonar el proyecto : git clone https://github.com/mdamas12/technical_test.git
+- moverse a la carpeta raiz del proyecto -> technical_test
+- Ejecutar el comando npm install (para instalar todas la dependencias necesarias de inertia y el buen funcionamiento de Vuejs
+- Crear la base de datos.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+## Configuracion del archivo .env 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- La configuracion de la base de datos:
+  
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=technical_test
+    DB_USERNAME=root
+    DB_PASSWORD=
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Variables de entorno para API STRIPE
+  
+  STRIPE_SK=sk_test_51Psn2pRtQRWcDdP5iV18N6keCdITVA69r8YfoyA8YXx4SDAfBJA2ntqCIGjaX993wfn6GrnCUSyRcIzUBbenUdUP00Soehquws
+  STRIPE_PK=pk_test_51Psn2pRtQRWcDdP5AlD97t6P91OFh8UlfkNsBnkxpM29oMAQlNZlCdtRLLpHMaEze6tcw9ufqwCB7lOZcvIfJsrV00WRZe8ubp
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## PHP ARTISAN 
+una vez configurado el archivo .env debemos correr las migraciones del proyecto: 
+- php artisan migrate
+  
+## Puesta en marcha del proyecto : 
+ Para efecto de la prueba debemos tener dos servidores corriendo, uno para simular el servidor del cliente y otro para la api. dicho esto debera abrir dos consolas para mantener abierto ambos server.
 
-## Laravel Sponsors
+ - En la primera consola ejecutar el comando: npm run dev
+ - En la segunda consola ejecutar el comando: php artisan serve. el link generado por este comando podra copiarlo, abrirlo en el navegador de su preferencia y probar el proyecto. ejmplo: http://127.0.0.1:8000
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+## Modelos
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- Tenemos un modelo usuarios usuario (login, register, logout)
+- Tenemos un modelo order: donde se puede crear una order con cualquie monto, esta lista las ordenes del usuario logueado y se podra ejecutar el pago
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+## Pago con stripe
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Si el usuario ejecuta el pago, esta validara la informacion en orderscontroller->checkout y si todo esta bien consumira el api de Stripe y devolvera si el pago fue efectuado correctamente o no, 
+- si el pago ha sido ejecutado correctamente se ejecuta una funcion (success) para actualizar el estado de la orden.
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Versiones 
 
-## License
+- Laravel 11.21.0
+- inertiajs 1.0.14
+- Node 18.12.1
+- npm 9.2.0
+- vuejs 3
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
