@@ -13,7 +13,8 @@ class OrdersController extends Controller
   
     public function index()
     {    
-        $orders = Order::paginate(10);
+        $user = auth()->id();
+        $orders = Order::where('user_id',$user)->paginate(10);
         $msj_success =  "";
         return inertia('Orders/index',['orders' => $orders]);
     }
@@ -34,7 +35,7 @@ class OrdersController extends Controller
             'total_amount' => $request->amount,
         ]);
 
-        $orders = Order::paginate(10);
+       $orders = Order::where('user_id',$user)->paginate(10);
         return inertia('Orders/index',['orders' => $orders]);
     }
 
@@ -74,14 +75,14 @@ class OrdersController extends Controller
        $order->payment_status = 1;
        $order->update();
 
-       $orders = Order::paginate(10);
+       $orders = Order::where('user_id',$user)->paginate(10);
        $msj_success =  "La orden ha sido pagada desde la plataforma stripe";
        return inertia('Orders/index',['orders' => $orders, 'msj_success' => $msj_success]);
     }
 
     public function cancelcheckout(String $id)
     {    
-       $orders = Order::paginate(10);
+        $orders = Order::where('user_id',$user)->paginate(10);
        $msj_success =  "El pago de la orden numero ".$id." no pudo ser procesado por stripe";
        return inertia('Orders/index',['orders' => $orders, 'msj_success' => $msj_success]);
     }
